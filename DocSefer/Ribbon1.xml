@@ -1,0 +1,11 @@
+﻿<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
+	<ribbon>
+		<tabs>
+			<tab idMso="TabHome">
+				<group id="test" label="My Group" insertAfterMso="GroupEditing">
+					<button id="testbutton" label="My Button" imageMso="ComAddInsDialog" size="large" onAction="button_Click"/>
+				</group>
+			</tab>
+		</tabs>
+	</ribbon>
+</customUI>

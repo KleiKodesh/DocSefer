@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocSefer", "DocSefer\DocSefer.csproj", "{922C2E42-8AC7-44FD-9A0F-922929C8EBA8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{922C2E42-8AC7-44FD-9A0F-922929C8EBA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{922C2E42-8AC7-44FD-9A0F-922929C8EBA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{922C2E42-8AC7-44FD-9A0F-922929C8EBA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{922C2E42-8AC7-44FD-9A0F-922929C8EBA8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB8A01AB-E20F-4126-BC89-F63D3F0853CF}
+	EndGlobalSection
+EndGlobal
