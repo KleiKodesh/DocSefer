@@ -191,9 +191,13 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Columns\AlignColumnsBottom.cs" />
+    <Compile Include="Columns\ColumnsHelper.cs" />
     <Compile Include="DocSeferView.xaml.cs">
       <DependentUpon>DocSeferView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\RangePageData.cs" />
+    <Compile Include="Helpers\ScreenFreeze.cs" />
     <Compile Include="Helpers\WpfTaskPane.cs" />
     <Compile Include="Helpers\UndoRecord.cs" />
     <Compile Include="Helpers\Vsto.cs" />
@@ -243,6 +247,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\WpfLib\WpfLib\WpfLib.csproj">
+      <Project>{494b02c1-54f2-4244-9a90-23c9984970e7}</Project>
+      <Name>WpfLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

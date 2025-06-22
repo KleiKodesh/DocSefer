@@ -11,16 +11,20 @@ namespace DocSefer.Paragraphs
         public void Apply(List<Style> styles, int minLineCount)
         {
             Remove();
-
             var selectionRange = Vsto.Application.Selection.Range;
 
             using (new UndoRecordHelper("עיצוב חלון"))
             {
                 PrepareFootnotes(selectionRange);
                 var paragraphs = ValidParagraphs(Vsto.Selection.Range, styles, minLineCount);
-
+                counter = 0;
                 foreach (var paragraph in paragraphs)
                 {
+                    if (counter++ >= MaxSafeIterations)
+                    {
+                        counter = 0;
+                        System.Windows.Forms.Application.DoEvents();
+                    }
                     Range paraRange = paragraph.Range;
                     paraRange.Collapse();
                     paraRange.MoveUntil(" ");
@@ -48,9 +52,14 @@ namespace DocSefer.Paragraphs
             {
                 PrepareFootnotes(selectionRange);
                 var paragraphs = ValidParagraphs(selectionRange, styles, minLineCount);
-
+                counter = 0;
                 foreach (var paragraph in paragraphs)
                 {
+                    if (counter++ >= MaxSafeIterations)
+                    {
+                        counter = 0;
+                        System.Windows.Forms.Application.DoEvents();
+                    }
                     Range paraRange = paragraph.Range;
                     paraRange.Collapse();
                     paraRange.MoveUntil(" ");

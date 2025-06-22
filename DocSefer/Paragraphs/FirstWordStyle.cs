@@ -39,9 +39,14 @@ namespace DocSefer.Paragraphs
             {
                 PrepareFootnotes(selectionRange);
                 var paragraphs = ValidParagraphs(selectionRange, styles, minLineCount);
-
+                counter = 0;
                 foreach (var paragraph in paragraphs)
                 {
+                    if (counter++ >= MaxSafeIterations)
+                    {
+                        counter = 0;
+                        System.Windows.Forms.Application.DoEvents();
+                    }
                     Range paraRange = paragraph.Range;
                     paraRange.Collapse();
                     paraRange.MoveEndUntil(" ");
@@ -102,6 +107,7 @@ namespace DocSefer.Paragraphs
             font.BoldBi = 1;
             font.Size += 2;
             font.SizeBi += 2;
+            font.Position = -1;
             //newStyle.QuickStyle = true;
 
             return newStyle;
@@ -122,8 +128,14 @@ namespace DocSefer.Paragraphs
 
             using (new UndoRecordHelper("הסרת עיצוב מילה ראשונה"))
             {
+                counter = 0;
                 foreach (Paragraph paragraph in targetRange.Paragraphs.Cast<Paragraph>().ToList())
                 {
+                    if (counter++ >= MaxSafeIterations)
+                    {
+                        counter = 0;
+                        System.Windows.Forms.Application.DoEvents();
+                    }
                     Range paraRange = paragraph.Range;
                     if (!paraRange.Text.Contains(" ")) continue;
                     paraRange.Collapse();

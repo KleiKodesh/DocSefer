@@ -17,6 +17,8 @@ namespace DocSefer.Paragraphs
                   return style != null && styles.Any(s => s.NameLocal == style.NameLocal) && lines >= minLineCount;
               }).ToList();
 
+        protected int counter = 0;
+        protected const int MaxSafeIterations = 50;
         public void PrepareFootnotes(Range range)
         {
             if (!(bool)range.Information[WdInformation.wdInFootnote] && !(bool)range.Information[WdInformation.wdInEndnote])

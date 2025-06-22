@@ -23,8 +23,14 @@ namespace DocSefer.Paragraphs
             using (new UndoRecordHelper("מירכוז שורה אחרונה"))
             {
                 var paragraphs = ValidParagraphs(Vsto.Selection.Range, styles, minLineCount);
+                counter = 0;
                 foreach (var paragraph in paragraphs)
                 {
+                    if (counter++ >= MaxSafeIterations)
+                    {
+                        counter = 0;
+                        System.Windows.Forms.Application.DoEvents();
+                    }
                     Range paraRange = paragraph.Range;
                     paraRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphDistribute;
                     paraRange.End -= 1;
@@ -41,8 +47,14 @@ namespace DocSefer.Paragraphs
             using (new UndoRecordHelper("מירכוז שורה אחרונה"))
             {
                 var paragraphs = ValidParagraphs(Vsto.Selection.Range, styles, minLineCount);
+                counter = 0;
                 foreach (var paragraph in paragraphs)
                 {
+                    if (counter++ >= MaxSafeIterations)
+                    {
+                        counter = 0;
+                        System.Windows.Forms.Application.DoEvents();
+                    }
                     Range paraRange = paragraph.Range;
                     paraRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
                     float centerPos = paraRange.PageSetup.TextColumns.Width / 2;
