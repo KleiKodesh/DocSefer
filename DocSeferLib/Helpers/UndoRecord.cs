@@ -1,7 +1,7 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System;
 
-namespace DocSefer.Helpers
+namespace DocSeferLib.Helpers
 {
     public sealed class UndoRecordHelper : IDisposable
     {

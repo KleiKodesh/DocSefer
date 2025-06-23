@@ -6,6 +6,8 @@ using System.Xml.Linq;
 using Word = Microsoft.Office.Interop.Word;
 using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Word;
+using System.Windows.Controls;
+using DocSefer.UI;
 
 namespace DocSefer
 {
@@ -13,11 +15,14 @@ namespace DocSefer
     {
         protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
         {
-            return new Ribbon1();
+            return new DocSeferRibbon();
         }
+
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             Vsto.Application = this.Application;
+            var pane = Helpers.WpfTaskPane.Create(new UserControl());
+            //pane.Visible = false;
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

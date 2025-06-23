@@ -191,21 +191,7 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Columns\AlignColumnsBottom.cs" />
-    <Compile Include="Columns\ColumnsHelper.cs" />
-    <Compile Include="DocSeferView.xaml.cs">
-      <DependentUpon>DocSeferView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\RangePageData.cs" />
-    <Compile Include="Helpers\ScreenFreeze.cs" />
-    <Compile Include="Helpers\WpfTaskPane.cs" />
-    <Compile Include="Helpers\UndoRecord.cs" />
-    <Compile Include="Helpers\Vsto.cs" />
-    <Compile Include="Paragraphs\CenterLastLine.cs" />
-    <Compile Include="Paragraphs\FirstWordStyle.cs" />
-    <Compile Include="Paragraphs\FirstWordHanging.cs" />
-    <Compile Include="Paragraphs\PargaraphsBase.cs" />
-    <Compile Include="Paragraphs\ParagraphsViewModel.cs" />
+    <Compile Include="UI\DocSeferRibbon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -227,7 +213,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Ribbon1.cs" />
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -240,19 +225,17 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ribbon1.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="DocSeferView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\WpfLib\WpfLib\WpfLib.csproj">
       <Project>{494b02c1-54f2-4244-9a90-23c9984970e7}</Project>
       <Name>WpfLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DocSeferLib\DocSeferLib.csproj">
+      <Project>{74e59bc0-41e5-475a-85cb-eacdc2ef6415}</Project>
+      <Name>DocSeferLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\DocSeferRibbon.xml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

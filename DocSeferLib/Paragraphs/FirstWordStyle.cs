@@ -1,4 +1,4 @@
-﻿using DocSefer.Helpers;
+﻿using DocSeferLib.Helpers;
 using Microsoft.Office.Interop.Word;
 using Microsoft.VisualBasic;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 
-namespace DocSefer.Paragraphs
+namespace DocSeferLib.Paragraphs
 {
     public class FirstWordStyle : PargaraphsBase
     {
@@ -125,6 +125,9 @@ namespace DocSefer.Paragraphs
         {
             if (targetRange == null)
                 targetRange = Vsto.Selection.Range;
+
+            targetRange.Start = targetRange.Paragraphs.First.Range.Start;
+            targetRange.End = targetRange.Paragraphs.Last.Range.End;
 
             using (new UndoRecordHelper("הסרת עיצוב מילה ראשונה"))
             {

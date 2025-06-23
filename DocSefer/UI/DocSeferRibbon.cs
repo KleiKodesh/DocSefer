@@ -7,23 +7,41 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Office = Microsoft.Office.Core;
 
-
-namespace DocSefer
+namespace DocSefer.UI
 {
     [ComVisible(true)]
-    public class Ribbon1 : Office.IRibbonExtensibility
+    public class DocSeferRibbon : Office.IRibbonExtensibility
     {
         private Office.IRibbonUI ribbon;
 
-        public Ribbon1()
+        public DocSeferRibbon()
         {
+        }
+
+        public void button_Click(Office.IRibbonControl control)
+        {
+            Helpers.WpfTaskPane.Create(new DocSeferLib.DocSeferLibView(Globals.ThisAddIn.Application), "DocSefer", 500, true);
+
+            //Stopwatch sw = Stopwatch.StartNew();
+
+            //sw.Restart();
+            //Helpers.WpfTaskPane.Create(new UserControl(), "DocSefer", 500);
+            //Debug.WriteLine("UserControl load time: " + sw.ElapsedMilliseconds + " ms");
+
+            //sw.Restart();
+            //Helpers.WpfTaskPane.Create(new DocSeferView(), "DocSefer", 500);
+            //Debug.WriteLine("DocSeferView (first) load time: " + sw.ElapsedMilliseconds + " ms");
+
+            //sw.Restart();
+            //Helpers.WpfTaskPane.Create(new DocSeferView2(), "DocSefer", 500);
+            //Debug.WriteLine("DocSeferView2 (second) load time: " + sw.ElapsedMilliseconds + " ms");
         }
 
         #region IRibbonExtensibility Members
 
         public string GetCustomUI(string ribbonID)
         {
-            return GetResourceText("DocSefer.Ribbon1.xml");
+            return GetResourceText("DocSefer.UI.DocSeferRibbon.xml");
         }
 
         #endregion
@@ -34,11 +52,6 @@ namespace DocSefer
         public void Ribbon_Load(Office.IRibbonUI ribbonUI)
         {
             this.ribbon = ribbonUI;
-        }
-
-        public void button_Click(Office.IRibbonControl control)
-        {
-            Helpers.WpfTaskPane.Create(new DocSeferView(), "DocSefer", 500);
         }
 
         #endregion

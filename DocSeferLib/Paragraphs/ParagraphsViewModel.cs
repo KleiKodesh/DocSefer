@@ -5,7 +5,7 @@ using System.Linq;
 using WpfLib;
 using WpfLib.ViewModels;
 
-namespace DocSefer.Paragraphs
+namespace DocSeferLib.Paragraphs
 {
     public class ParagraphsViewModel : ViewModelBase
     {

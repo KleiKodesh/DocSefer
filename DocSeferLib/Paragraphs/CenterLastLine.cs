@@ -1,9 +1,9 @@
-﻿using DocSefer.Helpers;
+﻿using DocSeferLib.Helpers;
 using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 
-namespace DocSefer.Paragraphs
+namespace DocSeferLib.Paragraphs
 {
     public class CenterLastLine : PargaraphsBase
     {
@@ -78,6 +78,9 @@ namespace DocSefer.Paragraphs
             if (targetRange == null)
                 targetRange = Vsto.Selection.Range;
 
+            targetRange.Start = targetRange.Paragraphs.First.Range.Start;
+            targetRange.End = targetRange.Paragraphs.Last.Range.End;
+
             using (new UndoRecordHelper("הסרת מירכוז שורה אחרונה"))
             {
                 targetRange.End = targetRange.Paragraphs.Last.Range.End;
@@ -102,6 +105,9 @@ namespace DocSefer.Paragraphs
         {
             if (targetRange == null)
                 targetRange = Vsto.Selection.Range;
+
+            targetRange.Start = targetRange.Paragraphs.First.Range.Start;
+            targetRange.End = targetRange.Paragraphs.Last.Range.End;
 
             using (new UndoRecordHelper("הסרת מירכוז שורה אחרונה"))
             {

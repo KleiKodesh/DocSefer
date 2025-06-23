@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DocSefer.Helpers
+namespace DocSeferLib.Helpers
 {
     public class ScreenFreeze : IDisposable
     {

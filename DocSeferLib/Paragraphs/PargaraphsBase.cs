@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WpfLib;
 
-namespace DocSefer.Paragraphs
+namespace DocSeferLib.Paragraphs
 {
     public class PargaraphsBase :ViewModelBase
     {
