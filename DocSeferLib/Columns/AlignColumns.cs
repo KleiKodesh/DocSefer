@@ -36,20 +36,23 @@ namespace DocSeferLib.Columns
 
                     try
                     {
-                        Range pageRange = document.GoTo(WdGoToItem.wdGoToPage, WdGoToDirection.wdGoToAbsolute, i);
-                        pageRange.End = (i < totalPages)
-                            ? document.GoTo(WdGoToItem.wdGoToPage, WdGoToDirection.wdGoToAbsolute, i + 1).Start - 1
-                            : document.Content.End;
-
-                        var sectionRanges = pageRange.RangeSections().Where(r => r.PageSetup.TextColumns.Count == 2);
-                        foreach (Range sectionRange in sectionRanges)
+                        using (new ScreenFreeze())
                         {
-                            var columns = GetColumns(document, sectionRange);
+                            Range pageRange = document.GoTo(WdGoToItem.wdGoToPage, WdGoToDirection.wdGoToAbsolute, i);
+                            pageRange.End = (i < totalPages)
+                                ? document.GoTo(WdGoToItem.wdGoToPage, WdGoToDirection.wdGoToAbsolute, i + 1).Start - 1
+                                : document.Content.End;
 
-                            if (columns[0].yPos == columns[1].yPos)
-                                continue;
+                            var sectionRanges = pageRange.RangeSections().Where(r => r.PageSetup.TextColumns.Count == 2);
+                            foreach (Range sectionRange in sectionRanges)
+                            {
+                                var columns = GetColumns(document, sectionRange);
 
-                            Align(columns.OrderBy(c => c.yPos).ToList());
+                                if (columns[0].yPos == columns[1].yPos)
+                                    continue;
+
+                                Align(columns.OrderBy(c => c.yPos).ToList());
+                            }
                         }
                     }
                     catch { }
