@@ -3,7 +3,7 @@
 		<tabs>
 			<tab idMso="TabHome">
 				<group id="test" label="My Group" insertAfterMso="GroupEditing">
-					<button id="testbutton" label="My Button" imageMso="ComAddInsDialog" size="large" onAction="button_Click"/>
+					<button id="testbutton" label="עיצוב תורני" imageMso="BibliographyStyle" size="large" onAction="button_Click"/>
 				</group>
 			</tab>
 		</tabs>

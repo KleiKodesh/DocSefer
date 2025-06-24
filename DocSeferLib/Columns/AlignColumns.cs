@@ -18,8 +18,8 @@ namespace DocSeferLib.Columns
         }
 
         int _maxSpacingChange = 40;
-        public int MaxSapcingChange { get => _maxSpacingChange; set => SetProperty(ref _maxSpacingChange, value); }
-        public float MinSpacingChange { get; set; } = 0.1f;
+        public int MaxSpaceAfter { get => _maxSpacingChange; set => SetProperty(ref _maxSpacingChange, value); }
+        //public float MinSpacingChange { get; set; } = 0.1f;
 
         public void Apply()
         {
@@ -88,18 +88,34 @@ namespace DocSeferLib.Columns
                 if (usableCount == 0)
                     break;
 
-                float increment = Math.Min(diff / usableCount, MaxSapcingChange);
+                float increment = Math.Min(diff / usableCount, MaxSpaceAfter);
+                bool changed = false;
+
                 if (increment < 0)
-                    paragraphs[0].SpaceAfter += diff;
+                    changed |= IncreaseSpaceAfter(paragraphs[0], Math.Min(diff, MaxSpaceAfter));
                 else
                     for (int i = 0; i < usableCount; i++)
-                        paragraphs[i].SpaceAfter += increment;
+                        changed |= IncreaseSpaceAfter(paragraphs[i], increment);
+
+                if (!changed)
+                    break;
 
                 Vsto.Application.ScreenRefresh();
                 columns[0].yPos = (float)columns[0].Bottom.Information[WdInformation.wdVerticalPositionRelativeToPage];
                 columns[1].yPos = (float)columns[1].Bottom.Information[WdInformation.wdVerticalPositionRelativeToPage];
             }
         }
+
+
+        bool IncreaseSpaceAfter(Paragraph paragraph, float increment)
+        {
+            float current = paragraph.SpaceAfter;
+            if (current >= MaxSpaceAfter) return false;
+            float newSpace = Math.Min(current + increment, MaxSpaceAfter);
+            paragraph.SpaceAfter = newSpace;
+            return true;
+        }
+
 
         //void Align(List<ColumnObject> columns)
         //{
