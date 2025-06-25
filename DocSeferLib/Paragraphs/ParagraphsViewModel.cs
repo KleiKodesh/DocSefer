@@ -1,7 +1,10 @@
 ﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows.Threading;
 using WpfLib;
 using WpfLib.ViewModels;
 
@@ -13,16 +16,16 @@ namespace DocSeferLib.Paragraphs
         {
             bool _apply;
             public Style Style { get; set; }
+            public string Name { get; set; }
             public bool Apply 
             {
                 get => _apply;
                 set => SetProperty(ref _apply, value);
             }
-            public string Name => Style?.NameLocal; // Optional: for UI display
         }
 
         int _minLineCount = 2;
-        ObservableCollection<ActiveStyle> _activeStyles = new ObservableCollection<ActiveStyle>(Vsto.ActiveStyles.Select(s => new ActiveStyle { Style = s, Apply = !(s.NameLocal.ToLower().StartsWith("head") || s.NameLocal.StartsWith("כותר")) }));
+        ObservableCollection<ActiveStyle> _activeStyles = new ObservableCollection<ActiveStyle>();
         bool _refreshStyles;
         bool? _checkAllStyles;
         public int MinLineCount { get => _minLineCount; set => SetProperty(ref _minLineCount, value); }
@@ -47,17 +50,32 @@ namespace DocSeferLib.Paragraphs
         public RelayCommand RemoveFirstWordStyleCommand => new RelayCommand(() => FirstWordStyle.Remove());
         public RelayCommand RemoveCenterLastLineCommand => new RelayCommand(() => CenterLastLine.Remove());
 
+        public ParagraphsViewModel()
+        {
+            RefreshActiveStylesAction();
+        }
+
         void RefreshActiveStylesAction()
         {
-            var styles = Vsto.ActiveStyles.Select(s => new ActiveStyle { Style = s, Apply = !(s.NameLocal.ToLower().StartsWith("head") || s.NameLocal.StartsWith("כותר")) });
-            foreach (Style style in styles)
-                if (!ActiveStyles.Any(s => s.Style.NameLocal == style.NameLocal))
-                    ActiveStyles.Add(new ActiveStyle
+            Dispatcher.CurrentDispatcher.InvokeAsync(() =>
+            {
+                foreach (Style style in Vsto.ActiveStyles)
+                {
+                    string name = style.NameLocal.ToLower();
+                    if (!ActiveStyles.Any(s => s.Name == name))
                     {
-                        Style = style,
-                        Apply = !(style.BuiltIn && (style.NameLocal.ToLower().StartsWith("head") || style.NameLocal.StartsWith("כותר")))
-                    });
-            CheckAllStyles = ActiveStyles.All(s => s.Apply) ? true : ActiveStyles.All(s => !s.Apply) ? false : (bool?)null;
+                        var newActiveStyle = new ActiveStyle
+                        {
+                            Style = style,
+                            Name = name,
+                            Apply = !(style.BuiltIn && (name.StartsWith("head") || name.StartsWith("כותר")))
+                        };
+                        ActiveStyles.Add(newActiveStyle);
+                    }
+                }
+
+                CheckAllStyles = ActiveStyles.All(s => s.Apply) ? true : ActiveStyles.All(s => !s.Apply) ? false : (bool?)null;
+            }, DispatcherPriority.ApplicationIdle);
         }
 
         void CheckAllChanged(bool? value)

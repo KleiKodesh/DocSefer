@@ -3,30 +3,34 @@ using Microsoft.Office.Interop.Word;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace DocSeferLib.Paragraphs
 {
     public class FirstWordStyle : PargaraphsBase
     {
         string _selectedStyle = "מילה ראשונה";
+        ObservableCollection<string> _styles = new ObservableCollection<string>();
         public string SelectedStyle 
         {
             get => _selectedStyle; 
             set => SetProperty(ref _selectedStyle, value); 
         }
 
-        public List<string> Styles => Vsto.ActiveDocument.Styles
-                .Cast<Style>()
-                .Where(s => s.Type == WdStyleType.wdStyleTypeCharacter)
-                .Select(s => s.NameLocal)
-                .ToList();
-
+        public ObservableCollection<string> Styles { get => _styles; set => SetProperty(ref _styles, value); }
 
         public FirstWordStyle()
         {
-            CreateFirstWordStyle();
+            Dispatcher.CurrentDispatcher.InvokeAsync(() =>
+            {
+                CreateFirstWordStyle();
+                foreach (Style style in Vsto.ActiveDocument.Styles)
+                    if (style.Type == WdStyleType.wdStyleTypeCharacter)
+                        Styles.Add(style.NameLocal);
+            }, DispatcherPriority.ApplicationIdle);
         }
 
         public void Apply(List<Style> styles, int minLineCount)

@@ -20,9 +20,7 @@ namespace DocSefer
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            Vsto.Application = this.Application;
-            var pane = Helpers.WpfTaskPane.Create(new UserControl());
-            //pane.Visible = false;
+
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

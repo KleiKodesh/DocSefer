@@ -5,7 +5,7 @@ using WpfLib;
 
 namespace DocSeferLib.Paragraphs
 {
-    public class PargaraphsBase :ViewModelBase
+    public class PargaraphsBase : ViewModelBase
     {
         public List<Paragraph> ValidParagraphs(Range targetRange, List<Style> styles, int minLineCount) =>
            targetRange.Paragraphs

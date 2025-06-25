@@ -6,6 +6,8 @@ namespace DocSeferLib.Paragraphs
 {
     public class FirstWordHanging : PargaraphsBase
     {
+        static readonly string HardBreak = "\v" + (char)160;
+
         public void Apply(List<Style> styles, int minLineCount)
         {
             Remove();
@@ -32,7 +34,7 @@ namespace DocSeferLib.Paragraphs
                     paraRange.Select();
 
                     Vsto.Selection.EndKey();
-                    Vsto.Selection.Text = "\v" + " ";
+                    Vsto.Selection.Text = HardBreak;
                     Vsto.Selection.Collapse(WdCollapseDirection.wdCollapseEnd);
                     float insertX = (float)Vsto.Selection.Information[WdInformation.wdHorizontalPositionRelativeToTextBoundary];
                     Vsto.Selection.Previous().Font.Spacing = insertX - firstWordX;
@@ -67,13 +69,13 @@ namespace DocSeferLib.Paragraphs
                     paraRange.Select();
 
                     Vsto.Selection.EndKey();
-                    Vsto.Selection.Text = "\v" + " ";
+                    Vsto.Selection.Text = HardBreak;
                     Vsto.Selection.Collapse(WdCollapseDirection.wdCollapseEnd);
                     float insertX = (float)Vsto.Selection.Information[WdInformation.wdHorizontalPositionRelativeToTextBoundary];
                     Vsto.Selection.Previous().Font.Spacing = insertX - firstWordX;
 
                     Vsto.Selection.EndKey();
-                    Vsto.Selection.Text = "\v" + " ";
+                    Vsto.Selection.Text = HardBreak;
                     Vsto.Selection.Collapse(WdCollapseDirection.wdCollapseEnd);
                     Vsto.Selection.Previous().Font.Spacing = insertX - firstWordX;
                 }
@@ -91,7 +93,7 @@ namespace DocSeferLib.Paragraphs
             using (new UndoRecordHelper("הסרת עיצוב חלון"))
             {
                 var find = targetRange.Find;
-                find.Text = "\v" + " ";
+                find.Text = HardBreak;
                 find.Replacement.Text = "";
                 find.Wrap = WdFindWrap.wdFindStop;
                 find.Execute(Replace: WdReplace.wdReplaceAll);

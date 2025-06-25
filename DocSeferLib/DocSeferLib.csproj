@@ -70,6 +70,7 @@
     <Compile Include="UI\DocSeferView.xaml.cs">
       <DependentUpon>DocSeferView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\DocseferViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\DocSeferDictionary.xaml">
@@ -86,6 +87,12 @@
       <Project>{494b02c1-54f2-4244-9a90-23c9984970e7}</Project>
       <Name>WpfLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Notes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

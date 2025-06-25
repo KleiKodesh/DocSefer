@@ -9,5 +9,10 @@ namespace DocSeferLib.Columns
         public AlignColumns AlignColumns { get; } = new AlignColumns();
         public RelayCommand AlignColumnsCommand => new RelayCommand(() => AlignColumns.Apply());
         public RelayCommand OpenColumnsDialogCommand => new RelayCommand(() => Vsto.Application.Dialogs[WdWordDialog.wdDialogFormatColumns].Show());
+
+        public ColumnsViewModel()
+        {
+
+        }
     }
 }
